@@ -1,2 +1,1 @@
-*.mp4 filter=lfs diff=lfs merge=lfs -text
 交互动画/优化.mp4 filter=lfs diff=lfs merge=lfs -text
