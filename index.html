@@ -766,10 +766,8 @@ var heroScrollEl = document.getElementById('heroScroll');
 var heroScrollProgressEl = document.getElementById('heroScrollProgress');
 var heroScrollTextEl = heroScrollEl ? heroScrollEl.querySelector('.hero-scroll-text') : null;
 
-function easeInOutExpo(t) {
-  return t < 0.5
-    ? Math.pow(2, 20 * t - 10) / 2
-    : (2 - Math.pow(2, -20 * t + 10)) / 2;
+function easeOutQuart(t) {
+  return 1 - Math.pow(1 - t, 4);
 }
 
 function autoScrollToCases() {
@@ -782,13 +780,13 @@ function autoScrollToCases() {
   window.addEventListener('touchmove', lockInput, { passive: false });
   var startY = window.pageYOffset;
   var targetY = cases.getBoundingClientRect().top + window.pageYOffset;
-  var duration = 1100;
+  var duration = 900;
   var startT = null;
   document.documentElement.style.scrollBehavior = 'auto';
   function step(ts) {
     if (startT === null) startT = ts;
     var t = Math.min((ts - startT) / duration, 1);
-    var e = easeInOutExpo(t);
+    var e = easeOutQuart(t);
     window.scrollTo(0, startY + (targetY - startY) * e);
     if (t < 1) requestAnimationFrame(step);
     else {
